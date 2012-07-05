@@ -1,0 +1,221 @@
+"Forget compatibility with Vi. Who cares.
+set nocompatible
+
+silent! call pathogen#runtime_append_all_bundles()
+
+"Enable filetypes
+filetype on
+filetype plugin on
+filetype indent on
+
+" Solarized Vim Theme Settings
+syntax on
+" set background=light
+
+if has("gui_running")
+    colorscheme solarized
+    set background=light
+else
+    colorscheme desert
+endif
+
+"Set the color scheme. Change this to your preference. 
+"Here's 100 to choose from: http://www.vim.org/scripts/script.php?script_id=625
+" colorscheme molokai 
+
+" set hidden
+
+"if has("gui_running")
+    "set transparency=5
+"endif
+
+
+"Write the old file out when switching between files.
+set autowrite
+
+"Display current cursor position in lower right corner.
+set ruler
+
+set guioptions=aAce
+
+"Want a different map leader than \
+"set mapleader = ",";
+
+"Ever notice a slight lag after typing the leader key + command? This lowers
+"the timeout.
+set timeoutlen=500
+
+"Switch between buffers without saving
+set hidden
+
+
+"Set font type and size. Depends on the resolution. Larger screens, prefer h15
+set guifont=Inconsolata:h15
+
+"Tab stuff
+set expandtab        " enter spaces when tab is pressed
+set textwidth=120    " break lines when line length increases
+set tabstop=4        " use 4 spaces to represent tab
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+
+"Show command in bottom right portion of the screen
+set showcmd
+
+"Show lines numbers
+set number
+
+"Prefer relative line numbering?
+"set relativenumber"
+
+"Always show the status line
+set laststatus=2
+
+"Prefer a slightly higher line height
+set linespace=1
+
+"Better line wrapping 
+set wrap
+set formatoptions=qrn1
+
+"Set incremental searching"
+set incsearch
+
+"Highlight searching
+set hlsearch
+
+" case insensitive search
+set ignorecase
+set smartcase
+
+"Hide MacVim toolbar by default
+"set go-=T
+
+"Hard-wrap paragraphs of text
+nnoremap <leader>q gqip
+
+"Enable code folding
+set foldenable
+
+"Hide mouse when typing
+set mousehide
+
+"Shortcut to fold tags with leader (usually \) + ft
+nnoremap ,ft Vatzf
+
+" Create dictionary for custom expansions
+set dictionary+=/Users/Home/.vim/dict.txt
+
+"Opens a vertical split and switches over (\v)
+nnoremap <leader>v <C-w>v<C-w>l
+
+"Split windows below the current window.
+set splitbelow              
+
+"Session settings
+set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
+
+"Set up an HTML5 template for all new .html files
+"autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
+
+"Load the current buffer in Firefox - Mac specific.
+abbrev ff :! open -a chrome.app %:p<cr>
+
+"Map a change directory to the desktop - Mac specific
+" nmap ,s :cd ~/Sites/<cr>:e.<cr>
+
+"Shortcut for editing  vimrc file in a new tab
+nmap ,ev :tabedit $MYVIMRC<cr>
+
+"Change zen coding plugin expansion key to shift + e
+" let g:user_zen_expandabbr_key = '<C-e>'
+
+"Faster shortcut for commenting. Requires T-Comment plugin
+map ,c <c-_><c-_>
+
+"Saves time; maps the spacebar to colon
+nmap <space> :
+
+"Automatically change current directory to that of the file in the buffer
+"autocmd BufEnter * cd %:p:h
+
+"Map code completion to , + tab
+" imap ,<tab> <C-x><C-o>
+
+" More useful command-line completion
+set wildmenu
+
+"Auto-completion menu
+" set wildmode=list:longest
+
+"http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
+
+" set completeopt=longest,menuone
+
+"Map escape key to jj -- much faster
+imap jk <esc>
+
+"Delete all buffers (via Derek Wyatt)
+nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<cr>
+
+"Bubble single lines (kicks butt)
+"http://vimcasts.org/episodes/bubbling-text/
+nmap <M-Up> ddkP
+nmap <M-Down> ddp
+
+"Bubble multiple lines
+vmap <M-Up> xkP`[V`]
+vmap <M-Down> xp`[V`]
+
+" Source the vimrc file after saving it. This way, you don't have to reload
+" Vim to see the changes.
+if has("autocmd")
+  autocmd bufwritepost .vimrc source $MYVIMRC
+endif
+"
+" easier window navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
+"autocmd BufEnter * cd %:p:h    "Automatically change current directory to that of current buffer
+
+"------------------------"
+"NERDTREE PLUGIN SETTINGS
+"------------------------"
+"Shortcut for NERDTreeToggle
+nmap <silent> ,nt :NERDTreeTabsToggle<cr>
+
+"Show hidden files in NerdTree
+let NERDTreeShowHidden=1
+
+"autopen NERDTree and focus cursor in new document
+autocmd VimEnter * NERDTreeToggle
+" autocmd vimenter * if !argc() | NERDTree | endif
+autocmd VimEnter * wincmd p
+
+au BufNewFile,BufRead *.less set filetype=less
+
+
+nmap <silent> ,ls :BuffergatorOpen<cr>
+nmap <silent> ,lc :BuffergatorClose<cr>
+
+"using bash_profile from shell in VIM
+"set shell=/bin/bash\ -li
+
+" Better Filetype Switching
+nmap <silent> ,ht :set filetype=html<cr>
+nmap <silent> ,pt :set filetype=php<cr>
+
+" EasyMotion key mapping
+nmap <silent> ,w :call EasyMotionWB(0, 0)<CR>
+
+set vb
+
+"change directory for vim backup files
+set backupdir=~/tmp
+
+"toggle highlighted searching
+nnoremap <silent> <C-u> :nohl<CR><C-l>
